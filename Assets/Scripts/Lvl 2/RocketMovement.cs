@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RocketMovement : MonoBehaviour
@@ -15,9 +13,12 @@ public class RocketMovement : MonoBehaviour
     {
         if (!GameManager.Instance.IsPlayMode) return;
 
+        _currentSpeed = GameManager.Bridge.CurrentSpeed;
 #if UNITY_EDITOR
-        _currentSpeed = Input.GetAxis("Horizontal") * _maxSpeed;
+        _currentSpeed = Input.GetAxis("Horizontal");
 #endif
+        _currentSpeed *= _maxSpeed;
+        
         _direction = Vector2.right * _currentSpeed;
         transform.Translate(_direction * Time.deltaTime);
         float x = Mathf.Clamp(transform.position.x, GameManager.Instance.MinX, GameManager.Instance.MaxX);

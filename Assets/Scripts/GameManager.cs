@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
+    private static ArduinoBridge _bridge;
     private UnityEvent _playLevelActions = new UnityEvent();
 
     // =================== Level ===================
@@ -29,16 +30,13 @@ public class GameManager : MonoBehaviour
     public float MaxX { get => _maxX; private set => _maxX = value; }
     public float PosY { get => _posY; private set => _posY = value; }
     private int Lvl2Duration { get => _lvl2Duration; }
+    public static ArduinoBridge Bridge { get => _bridge; private set => _bridge = value; }
 
     private void Awake()
     {
         if (!Instance) Instance = this;
+        if (!Bridge) Bridge = FindObjectOfType<ArduinoBridge>();
         DontDestroyOnLoad(gameObject);
-    }
-
-    private void OnLevelWasLoaded(int level)
-    {
-
     }
 
     private void Update()

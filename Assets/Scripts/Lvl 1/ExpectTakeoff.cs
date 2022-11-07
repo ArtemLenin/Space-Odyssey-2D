@@ -9,16 +9,23 @@ public class ExpectTakeoff : MonoBehaviour
     private void Update()
     {
         CheckInput();
-        if (_signal)
+        if (Signal)
         {
-            // start animation
-            // 
-            GameManager.Instance.CheckCompletion();
+            Launch();
         }
+    }
+
+    private void Launch()
+    {
+        //
+        // start animation
+        // 
+        GameManager.Instance.CheckCompletion();
     }
 
     private void CheckInput()
     {
+        Signal = GameManager.Bridge.Signal;
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.Space))
         {
